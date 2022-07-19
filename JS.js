@@ -1,5 +1,5 @@
-const width = 1000
-const height = 800
+const width = Math.max(window.innerWidth - 300, 1000)
+const height = Math.max(window.innerHeight - 340, 700)
 const grafico = d3.select('#grafico')
 
 const svg = grafico.append('svg')
