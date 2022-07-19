@@ -72,4 +72,35 @@ d3.json('https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/movie-
           .attr('x', 5)
           .attr('y', (d, i) => 15 + i * 15)
           .text(d => d)
+
+    const categories = root.leaves().map(object => object.data.category).filter((itm, index, arr) => arr.indexOf(itm) === index)
+    const blockSize = 25
+    const legendWidth = 200
+    const legendHeight = (blockSize + 2)*categories.length
+    
+    const legend = d3.select('#legend')
+                     .append('svg')
+                     .attr('width', legendWidth)
+                     .attr('height', legendHeight) 
+
+    legend.selectAll('rect')
+          .data(categories)
+          .enter()
+          .append('rect')
+          .attr('class', 'legend-item')
+          .attr('x', blockSize / 2)
+          .attr('y', (d, i) => i * (blockSize + 1) + 10)
+          .attr('width', blockSize)
+          .attr('height', blockSize)
+          .style('fill', d => color(d))
+
+    legend.append('g')
+          .selectAll('text')
+          .data(categories)
+          .enter()
+          .append('text')
+          .attr('x', blockSize * 2)
+          .attr('y', (d, i) => i * (blockSize + 1) + 25)
+          .text(d => d)
+
 })
